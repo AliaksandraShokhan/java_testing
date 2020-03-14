@@ -12,4 +12,9 @@ public class Point {
     public void printCoordinates() {
         System.out.print("[" + x + "; " + y + "]");
     }
+
+    public double distance(Point b) {
+        double d = Math.sqrt(Math.pow((this.x - b.x),2) + Math.pow((this.y - b.y),2));
+        return d;
+    }
 }
