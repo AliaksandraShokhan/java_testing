@@ -12,6 +12,7 @@ public class ApplicationManager {
     private SessionHelper sessionHelper;
     private NavigationHelper navigationHelper;
     private GroupsHelper groupsHelper;
+    private ContactsHelper contactsHelper;
 
     public void init() {
         wd = new ChromeDriver();
@@ -21,6 +22,7 @@ public class ApplicationManager {
         navigationHelper = new NavigationHelper(wd);
         sessionHelper = new SessionHelper(wd);
         sessionHelper.login("admin", "secret");
+        contactsHelper = new ContactsHelper(wd);
     }
 
     public void logout() {
@@ -38,4 +40,8 @@ public class ApplicationManager {
     public NavigationHelper getNavigationHelper() {
         return navigationHelper;
     }
+
+    public SessionHelper getSessionHelper() { return sessionHelper; }
+
+    public ContactsHelper getContactsHelper() { return contactsHelper; }
 }
