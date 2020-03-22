@@ -24,10 +24,15 @@ public class ContactCreationTests {
   }
 
   @Test
-  public void testContactCreationTests() throws Exception {
+  public void testContactCreation() throws Exception {
 
     initContactCreation();
-    fillContactForm(new ContactData("firstname", "middlename", "lastname", "nickname", "title", "company", "address", "hometelephone", "mobiletelephone", "work telephone", "fax", "email@sample.com", "email2@sample.com", "email@sample.com", "www.site.org", "2", "April", "1990", "6", "April", "1900", "test1", "address", "home", "notes"));
+    fillContactForm(new ContactData("firstname", "middlename", "lastname",
+            "nickname", "title", "company", "address", "hometelephone",
+            "mobiletelephone", "work telephone", "fax", "email@sample.com",
+            "email2@sample.com", "email@sample.com", "www.site.org", "2",
+            "April", "1990", "6", "April", "1900",
+            "test1", "address", "home", "notes"));
     submitContactCreation();
     viewHomepage();
     logout();
