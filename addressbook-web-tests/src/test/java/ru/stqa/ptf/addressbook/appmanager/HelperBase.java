@@ -28,6 +28,10 @@ public class HelperBase {
         new Select(wd.findElement(locator)).selectByVisibleText(text);
     }
 
+    protected void confirmAlert() {
+        wd.switchTo().alert().accept();
+    }
+
     public boolean isAlertPresent() {
         try {
             wd.switchTo().alert();

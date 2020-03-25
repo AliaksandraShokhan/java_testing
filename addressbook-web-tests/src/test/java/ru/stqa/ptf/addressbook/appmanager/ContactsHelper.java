@@ -100,4 +100,10 @@ public class ContactsHelper extends HelperBase {
         type(By.name("phone2"), contactData.getHomePhoneExtra());
         type(By.name("notes"), contactData.getNotes());
     }
+
+    public void selectContact(int id) { click(By.id(Integer.toString(id))); }
+
+    public void initContactDeletion() { click(By.xpath("//input[@value='Delete']")); }
+
+    public void confirmDeletion() { confirmAlert(); }
 }
