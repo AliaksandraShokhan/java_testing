@@ -6,7 +6,7 @@ public class ContactDeletionTests extends TestBase {
 
     @Test
     public void testContactDeletion() throws InterruptedException {
-        app.getContactsHelper().selectContact(8);
+        app.getContactsHelper().selectContact();
         app.getContactsHelper().initContactDeletion();
         app.getContactsHelper().confirmDeletion();
     }
