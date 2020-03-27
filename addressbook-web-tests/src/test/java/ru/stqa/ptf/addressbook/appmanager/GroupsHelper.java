@@ -1,14 +1,13 @@
 package ru.stqa.ptf.addressbook.appmanager;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import ru.stqa.ptf.addressbook.model.GroupData;
 
 public class GroupsHelper extends HelperBase {
 
-    public GroupsHelper(ChromeDriver wd) {
-        super(wd);
-    }
+    public GroupsHelper(WebDriver wd) { super(wd); }
 
     public void submitGroupCreation() {
         click(By.name("submit"));
