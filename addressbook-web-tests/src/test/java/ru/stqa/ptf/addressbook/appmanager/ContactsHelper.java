@@ -62,13 +62,38 @@ public class ContactsHelper extends HelperBase {
         click(By.linkText("add new"));
     }
 
-    public void initContactModification() { click(By.xpath("//img[@alt='Edit']")); }
+    public void initContactModification() {
+        click(By.xpath("//img[@alt='Edit']"));
+    }
 
-    public void submitContactModification() { click((By.name("update"))); }
+    public void submitContactModification() {
+        click((By.name("update")));
+    }
 
-    public void selectContact() { click(By.name("selected[]")); }
+    public void returnToHomePage() {
+        click(By.linkText("home page"));
+    }
 
-    public void initContactDeletion() { click(By.xpath("//input[@value='Delete']")); }
+    public void selectContact() {
+        click(By.name("selected[]"));
+    }
 
-    public void confirmDeletion() { confirmAlert(); }
+    public void initContactDeletion() {
+        click(By.xpath("//input[@value='Delete']"));
+    }
+
+    public void confirmDeletion() {
+        confirmAlert();
+    }
+
+    public void createContact(ContactData data) {
+        initContactCreation();
+        fillContactForm(data, true);
+        submitContactCreation();
+        returnToHomePage();
+    }
+
+    public boolean isThereAContact() {
+        return isElementPresent(By.name("selected[]"));
+    }
 }
