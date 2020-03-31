@@ -16,6 +16,6 @@ public class ContactModificationTests extends TestBase {
                 "April", "1990", "6", "April", "1900",
                 null, "address", "home", "was edited"), false);
         app.getContactsHelper().submitContactModification();
-        app.getContactsHelper().returnToHomePage();
+        app.getNavigationHelper().goToHomePage();
     }
 }

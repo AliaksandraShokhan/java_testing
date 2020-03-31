@@ -14,9 +14,9 @@ public class ContactCreationTests extends TestBase {
             "mobiletelephone", "work telephone", "fax", "email@sample.com",
             "email2@sample.com", "email@sample.com", "www.site.org", "2",
             "April", "1990", "6", "April", "1900",
-            "test1", "address", "home", "notes"), true);
+            "test4", "address", "home", "notes"), true);
     app.getContactsHelper().submitContactCreation();
-    app.getContactsHelper().viewHomepage();
+    app.getNavigationHelper().goToHomePage();
     app.getSessionHelper().logout();
   }
 }

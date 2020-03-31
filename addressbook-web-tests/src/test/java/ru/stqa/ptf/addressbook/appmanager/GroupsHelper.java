@@ -23,10 +23,6 @@ public class GroupsHelper extends HelperBase {
         click(By.name("new"));
     }
 
-    public void returnToGroupsPage() {
-        click(By.linkText("group page"));
-    }
-
     public void deleteSelectedGroups() {
         click(By.name("delete"));
     }

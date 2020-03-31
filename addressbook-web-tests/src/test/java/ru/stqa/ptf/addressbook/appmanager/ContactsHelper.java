@@ -54,10 +54,6 @@ public class ContactsHelper extends HelperBase {
         type(By.name("notes"), contactData.getNotes());
     }
 
-    public void viewHomepage() {
-        click(By.linkText("home page"));
-    }
-
     public void submitContactCreation() {
         click(By.xpath("(//input[@name='submit'])[2]"));
     }
@@ -69,8 +65,6 @@ public class ContactsHelper extends HelperBase {
     public void initContactModification() { click(By.xpath("//img[@alt='Edit']")); }
 
     public void submitContactModification() { click((By.name("update"))); }
-
-    public void returnToHomePage() { click(By.linkText("home page")); }
 
     public void selectContact() { click(By.name("selected[]")); }
 
