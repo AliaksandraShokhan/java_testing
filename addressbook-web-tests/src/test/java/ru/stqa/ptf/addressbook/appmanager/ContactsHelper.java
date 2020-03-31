@@ -61,7 +61,7 @@ public class ContactsHelper extends HelperBase {
         click(By.linkText("add new"));
     }
 
-    public void initContactModification(int id) { click(By.xpath("(//img[@alt='Edit'])[" + id + "]")); }
+    public void initContactModification() { click(By.xpath("//img[@alt='Edit']")); }
 
     public void submitContactModification() { click((By.name("update"))); }
 
