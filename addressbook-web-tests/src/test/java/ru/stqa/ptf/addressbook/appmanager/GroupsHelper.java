@@ -7,7 +7,9 @@ import ru.stqa.ptf.addressbook.model.GroupData;
 
 public class GroupsHelper extends HelperBase {
 
-    public GroupsHelper(WebDriver wd) { super(wd); }
+    public GroupsHelper(WebDriver wd) {
+        super(wd);
+    }
 
     public void submitGroupCreation() {
         click(By.name("submit"));
@@ -23,19 +25,25 @@ public class GroupsHelper extends HelperBase {
         click(By.name("new"));
     }
 
-    public void returnToGroupsPage() { click(By.linkText("group page")); }
+    public void returnToGroupsPage() {
+        click(By.linkText("group page"));
+    }
 
     public void deleteSelectedGroups() {
         click(By.name("delete"));
     }
 
-    public void selectGroup() {
-        click(By.name("selected[]"));
+    public void selectGroup(int index) {
+        wd.findElements(By.name("selected[]")).get(index).click();
     }
 
-    public void initGroupModification() { click((By.name("edit"))); }
+    public void initGroupModification() {
+        click((By.name("edit")));
+    }
 
-    public void submitGroupModification() { click((By.name("update"))); }
+    public void submitGroupModification() {
+        click((By.name("update")));
+    }
 
     public void createGroup(GroupData group) {
         initGroupCreation();

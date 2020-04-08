@@ -17,7 +17,7 @@ public class ContactDeletionTests extends TestBase {
                     "April", "1990", "6", "April", "1900",
                     "test4", "address", "home", "notes"));
         }
-        app.getContactsHelper().selectContact();
+        app.getContactsHelper().selectContact(0);
         app.getContactsHelper().initContactDeletion();
         app.getContactsHelper().confirmDeletion();
         if (app.getContactsHelper().isDeletionConfirmed()) {

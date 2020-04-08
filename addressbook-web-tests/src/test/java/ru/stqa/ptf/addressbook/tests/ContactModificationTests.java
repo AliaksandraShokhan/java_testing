@@ -17,7 +17,7 @@ public class ContactModificationTests extends TestBase {
                     "April", "1990", "6", "April", "1900",
                     "test4", "address", "home", "notes"));
         }
-        app.getContactsHelper().selectContact();
+        app.getContactsHelper().selectContact(0);
         app.getContactsHelper().initContactModification();
         app.getContactsHelper().fillContactForm(new ContactData("123", "456", "789",
                 "nickname", "title", "company", "address", "hometelephone",
