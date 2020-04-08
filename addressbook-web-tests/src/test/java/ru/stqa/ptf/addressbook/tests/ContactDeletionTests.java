@@ -3,12 +3,15 @@ package ru.stqa.ptf.addressbook.tests;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import ru.stqa.ptf.addressbook.model.ContactData;
+import ru.stqa.ptf.addressbook.model.GroupData;
+
+import java.util.List;
 
 public class ContactDeletionTests extends TestBase {
 
     @Test
     public void testContactDeletion() {
-        int before = app.getContactsHelper().getContactCount();
+
         if (!app.getContactsHelper().isThereAContact()) {
             app.getContactsHelper().createContact(new ContactData("firstname", "middlename", "lastname",
                     "nickname", "title", "company", "address", "hometelephone",
@@ -17,13 +20,14 @@ public class ContactDeletionTests extends TestBase {
                     "April", "1990", "6", "April", "1900",
                     "test4", "address", "home", "notes"));
         }
+        List<ContactData> before = app.getContactsHelper().getContactList();
         app.getContactsHelper().selectContact(0);
         app.getContactsHelper().initContactDeletion();
         app.getContactsHelper().confirmDeletion();
         if (app.getContactsHelper().isDeletionConfirmed()) {
             app.getNavigationHelper().goToHomePage();
         }
-        int after = app.getContactsHelper().getContactCount();
-        Assert.assertEquals(after, before - 1);
+        List<ContactData> after = app.getContactsHelper().getContactList();
+        Assert.assertEquals(after.size(), before.size() - 1);
     }
 }

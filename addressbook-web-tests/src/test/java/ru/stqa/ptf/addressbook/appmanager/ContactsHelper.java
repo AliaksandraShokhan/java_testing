@@ -2,9 +2,13 @@ package ru.stqa.ptf.addressbook.appmanager;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
 import ru.stqa.ptf.addressbook.model.ContactData;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ContactsHelper extends HelperBase {
 
@@ -105,5 +109,22 @@ public class ContactsHelper extends HelperBase {
         if (isElementPresent(By.cssSelector("div.msgbox"))) {
             return true;
         } else return false;
+    }
+
+    public List<ContactData> getContactList() {
+        List<ContactData> contacts = new ArrayList<ContactData>();
+        WebElement table = wd.findElement(By.id("maintable"));
+        List<WebElement> allRows = table.findElements(By.tagName("tr"));
+        for (WebElement row : allRows) {
+            List<WebElement> elements = wd.findElements(By.tagName("td"));
+            String name = row.getText();
+            ContactData contact = new ContactData(name, null, null, null, null,
+                    null, null, null, null, null, null,
+                    null, null, null, null, null, null,
+                    null, null, null, null, null,
+                    null, null, null);
+            contacts.add(contact);
+        }
+        return contacts;
     }
 }
