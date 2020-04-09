@@ -1,5 +1,7 @@
 package ru.stqa.ptf.addressbook.model;
 
+import java.util.Objects;
+
 public class ContactData {
     private final String firstName;
     private final String middleName;
@@ -157,5 +159,51 @@ public class ContactData {
 
     public String getNotes() {
         return notes;
+    }
+
+    @Override
+    public String toString() {
+        return "ContactData{" +
+                "firstName='" + firstName + '\'' +
+                ", middleName='" + middleName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", nickName='" + nickName + '\'' +
+                ", title='" + title + '\'' +
+                ", company='" + company + '\'' +
+                ", address='" + address + '\'' +
+                ", homePhone='" + homePhone + '\'' +
+                ", mobilePhone='" + mobilePhone + '\'' +
+                ", workPhone='" + workPhone + '\'' +
+                ", fax='" + fax + '\'' +
+                ", email1='" + email1 + '\'' +
+                ", email2='" + email2 + '\'' +
+                ", email3='" + email3 + '\'' +
+                ", homepage='" + homepage + '\'' +
+                ", birthdayDay='" + birthdayDay + '\'' +
+                ", birthdayMonth='" + birthdayMonth + '\'' +
+                ", birthdayYear='" + birthdayYear + '\'' +
+                ", anniversDay='" + anniversDay + '\'' +
+                ", anniversMonth='" + anniversMonth + '\'' +
+                ", anniversYear='" + anniversYear + '\'' +
+                ", group='" + group + '\'' +
+                ", addressExtra='" + addressExtra + '\'' +
+                ", homePhoneExtra='" + homePhoneExtra + '\'' +
+                ", notes='" + notes + '\'' +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ContactData that = (ContactData) o;
+        return Objects.equals(firstName, that.firstName) &&
+                Objects.equals(middleName, that.middleName) &&
+                Objects.equals(lastName, that.lastName);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(firstName, middleName, lastName);
     }
 }
