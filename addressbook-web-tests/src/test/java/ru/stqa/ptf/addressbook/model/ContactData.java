@@ -68,7 +68,7 @@ public class ContactData {
                        String fax, String email1, String email2, String email3, String homepage, String birthdayDay,
                        String birthdayMonth, String birthdayYear, String anniversDay, String anniversMonth,
                        String anniversYear, String group, String addressExtra, String homePhoneExtra, String notes) {
-        this.id = 0;
+        this.id = Integer.MAX_VALUE;
         this.firstName = firstName;
         this.middleName = middleName;
         this.lastName = lastName;
@@ -201,21 +201,6 @@ public class ContactData {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        ContactData that = (ContactData) o;
-        return id == that.id &&
-                Objects.equals(firstName, that.firstName) &&
-                Objects.equals(lastName, that.lastName);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, firstName, lastName);
-    }
-
-    @Override
     public String toString() {
         return "ContactData{" +
                 "id=" + id +
@@ -224,4 +209,17 @@ public class ContactData {
                 '}';
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ContactData that = (ContactData) o;
+        return Objects.equals(firstName, that.firstName) &&
+                Objects.equals(lastName, that.lastName);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(firstName, lastName);
+    }
 }
