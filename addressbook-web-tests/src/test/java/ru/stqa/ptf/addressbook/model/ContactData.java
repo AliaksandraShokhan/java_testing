@@ -3,7 +3,7 @@ package ru.stqa.ptf.addressbook.model;
 import java.util.Objects;
 
 public class ContactData {
-    private final String id;
+    int id;
     private final String firstName;
     private final String middleName;
     private final String lastName;
@@ -30,7 +30,7 @@ public class ContactData {
     private final String homePhoneExtra;
     private final String notes;
 
-    public ContactData(String id, String firstName, String middleName, String lastName, String nickName, String title,
+    public ContactData(int id, String firstName, String middleName, String lastName, String nickName, String title,
                        String company, String address, String homePhone, String mobilePhone, String workPhone,
                        String fax, String email1, String email2, String email3, String homepage, String birthdayDay,
                        String birthdayMonth, String birthdayYear, String anniversDay, String anniversMonth,
@@ -68,7 +68,7 @@ public class ContactData {
                        String fax, String email1, String email2, String email3, String homepage, String birthdayDay,
                        String birthdayMonth, String birthdayYear, String anniversDay, String anniversMonth,
                        String anniversYear, String group, String addressExtra, String homePhoneExtra, String notes) {
-        this.id = null;
+        this.id = 0;
         this.firstName = firstName;
         this.middleName = middleName;
         this.lastName = lastName;
@@ -96,7 +96,9 @@ public class ContactData {
         this.notes = notes;
     }
 
-    public String getId() { return id; }
+    public void setId(int id) { this.id = id; }
+
+    public int getId() { return id; }
 
     public String getFirstName() {
         return firstName;
@@ -203,7 +205,7 @@ public class ContactData {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         ContactData that = (ContactData) o;
-        return Objects.equals(id, that.id) &&
+        return id == that.id &&
                 Objects.equals(firstName, that.firstName) &&
                 Objects.equals(lastName, that.lastName);
     }
@@ -216,7 +218,7 @@ public class ContactData {
     @Override
     public String toString() {
         return "ContactData{" +
-                "id='" + id + '\'' +
+                "id=" + id +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 '}';
