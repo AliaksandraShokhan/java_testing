@@ -114,7 +114,7 @@ public class ContactsHelper extends HelperBase {
     public List<ContactData> getContactList() {
         List<ContactData> contacts = new ArrayList<ContactData>();
         WebElement table = wd.findElement(By.id("maintable"));
-        List<WebElement> allRows = table.findElements(By.tagName("tr"));
+        List<WebElement> allRows = table.findElements(By.name("entry"));
         for (WebElement row : allRows) {
             List<WebElement> elements = wd.findElements(By.tagName("td"));
             String name = row.getText();

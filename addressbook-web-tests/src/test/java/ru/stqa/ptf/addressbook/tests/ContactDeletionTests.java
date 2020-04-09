@@ -16,7 +16,7 @@ public class ContactDeletionTests extends TestBase {
                     "mobiletelephone", "work telephone", "fax", "email@sample.com",
                     "email2@sample.com", "email@sample.com", "www.site.org", "2",
                     "April", "1990", "6", "April", "1900",
-                    "test4", "address", "home", "notes"));
+                    "test1", "address", "home", "notes"));
         }
         List<ContactData> before = app.getContactsHelper().getContactList();
         app.getContactsHelper().selectContact(0);
