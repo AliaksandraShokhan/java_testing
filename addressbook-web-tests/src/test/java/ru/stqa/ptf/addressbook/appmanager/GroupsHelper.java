@@ -3,7 +3,6 @@ package ru.stqa.ptf.addressbook.appmanager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
 import ru.stqa.ptf.addressbook.model.GroupData;
 
 import java.util.ArrayList;
@@ -15,7 +14,7 @@ public class GroupsHelper extends HelperBase {
         super(wd);
     }
 
-    public void submitGroupCreation() {
+    public void submitCreation() {
         click(By.name("submit"));
     }
 
@@ -25,7 +24,7 @@ public class GroupsHelper extends HelperBase {
         type(By.name("group_footer"), groupData.getFooter());
     }
 
-    public void initGroupCreation() {
+    public void initCreation() {
         click(By.name("new"));
     }
 
@@ -37,22 +36,36 @@ public class GroupsHelper extends HelperBase {
         click(By.name("delete"));
     }
 
-    public void selectGroup(int index) {
+    public void select(int index) {
         wd.findElements(By.name("selected[]")).get(index).click();
     }
 
-    public void initGroupModification() {
+    public void initModification() {
         click((By.name("edit")));
     }
 
-    public void submitGroupModification() {
+    public void submitModification() {
         click((By.name("update")));
     }
 
-    public void createGroup(GroupData group) {
-        initGroupCreation();
+    public void create(GroupData group) {
+        initCreation();
         fillGroupForm(group);
-        submitGroupCreation();
+        submitCreation();
+        returnToGroupsPage();
+    }
+
+    public void modify(int index, GroupData newGroup) {
+        select(index);
+        initModification();
+        fillGroupForm(newGroup);
+        submitModification();
+        returnToGroupsPage();
+    }
+
+    public void delete(int index) {
+        select(index);
+        deleteSelectedGroups();
         returnToGroupsPage();
     }
 
@@ -64,7 +77,7 @@ public class GroupsHelper extends HelperBase {
         return wd.findElements(By.name("selected[]")).size();
     }
 
-    public List<GroupData> getGroupList() {
+    public List<GroupData> list() {
         List<GroupData> groups = new ArrayList<GroupData>();
         List<WebElement> elements = wd.findElements(By.cssSelector("span.group"));
         for (WebElement element : elements) {

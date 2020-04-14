@@ -3,7 +3,6 @@ package ru.stqa.ptf.addressbook.appmanager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
 import ru.stqa.ptf.addressbook.model.ContactData;
 
@@ -58,31 +57,39 @@ public class ContactsHelper extends HelperBase {
         type(By.name("notes"), contactData.getNotes());
     }
 
-    public void submitContactCreation() {
+    public void submitCreation() {
         click(By.xpath("(//input[@name='submit'])[2]"));
     }
 
-    public void initContactCreation() {
+    public void initCreation() {
         click(By.linkText("add new"));
     }
 
-    public void initContactModification() {
+    public void initModification() {
         click(By.xpath("//img[@alt='Edit']"));
     }
 
-    public void submitContactModification() {
+    public void submitModification() {
         click((By.name("update")));
     }
 
-    public void returnToHomePage() {
-        click(By.linkText("home page"));
+    public void modify(int index, ContactData contact) {
+        select(index);
+        initModification();
+        fillContactForm(contact, false);
+        submitModification();
+        returnToHomePage();
     }
 
-    public void selectContact(int index) {
+    public void returnToHomePage() {
+        click(By.linkText("home"));
+    }
+
+    public void select(int index) {
         wd.findElements(By.name("selected[]")).get(index).click();
     }
 
-    public void initContactDeletion() {
+    public void initDeletion() {
         click(By.xpath("//input[@value='Delete']"));
     }
 
@@ -90,11 +97,20 @@ public class ContactsHelper extends HelperBase {
         confirmAlert();
     }
 
-    public void createContact(ContactData data) {
-        initContactCreation();
+    public void create(ContactData data) {
+        initCreation();
         fillContactForm(data, true);
-        submitContactCreation();
+        submitCreation();
         returnToHomePage();
+    }
+
+    public void delete(int index) {
+        select(index);
+        initDeletion();
+        confirmDeletion();
+        if (isDeletionConfirmed()) {
+            returnToHomePage();
+        }
     }
 
     public boolean isThereAContact() {
@@ -111,7 +127,7 @@ public class ContactsHelper extends HelperBase {
         } else return false;
     }
 
-    public List<ContactData> getContactList() {
+    public List<ContactData> list() {
         List<ContactData> contacts = new ArrayList<ContactData>();
         WebElement table = wd.findElement(By.id("maintable"));
         List<WebElement> allRows = table.findElements(By.name("entry"));
