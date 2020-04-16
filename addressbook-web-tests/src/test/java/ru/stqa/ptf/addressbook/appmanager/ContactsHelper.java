@@ -40,8 +40,8 @@ public class ContactsHelper extends HelperBase {
         click(By.linkText("add new"));
     }
 
-    public void initModification() {
-        click(By.xpath("//img[@alt='Edit']"));
+    public void initModification(int id) {
+        click(By.xpath("//a[@href=\"edit.php?id=" + id + "\"]"));
     }
 
     public void submitModification() {
@@ -50,7 +50,7 @@ public class ContactsHelper extends HelperBase {
 
     public void modify(ContactData contact) {
         selectById(contact.getId());
-        initModification();
+        initModification(contact.getId());
         fillContactForm(contact, false);
         submitModification();
         returnToHomePage();
