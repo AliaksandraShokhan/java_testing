@@ -10,36 +10,30 @@ import java.util.stream.Collectors;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 
-public class ContactPhoneTests extends TestBase {
+public class ContactEmailTests extends TestBase {
 
     @BeforeMethod
     public void ensurePreconditions() {
 
         if (app.contact().all().size() == 0) {
-            app.contact().create(new ContactData().withFirstName("first name").withLastName("last name").
-                    withAddress("address").withEmail1("example1@mail.com").withEmail2("example2@mail.com").withEmail3("example3@mail.com").
+            app.contact().create(new ContactData().withFirstName("first name").withLastName("last name")
+                    .withAddress("address").withEmail1("example1@mail.com").withEmail2("example2@mail.com").withEmail3("example3@mail.com").
                     withHomePhone("+46 8 64 25 66").withMobilePhone("234567").withWorkPhone("56789").withGroup("test1"));
         }
     }
 
     @Test
-    public void testContactPhones() {
+    public void testContactEmail() {
         app.goTo().HomePage();
         ContactData contact = app.contact().all().iterator().next();
         ContactData contactInfoFromEditForm = app.contact().infoFromEditForm(contact);
 
-        assertThat(contact.getAllPhones(), equalTo(mergePhones(contactInfoFromEditForm)));
+        assertThat(contact.getAllEmails(), equalTo(mergeEmails(contactInfoFromEditForm)));
     }
 
-    private String mergePhones(ContactData contact) {
-        return Arrays.asList(contact.getHomePhone(), contact.getMobilePhone(), contact.getWorkPhone())
-                .stream().filter((s) -> ! s.equals(""))
-                .map(ContactPhoneTests::cleaned)
+    private String mergeEmails(ContactData contact) {
+        return Arrays.asList(contact.getEmail1(), contact.getEmail2(), contact.getEmail3())
+                .stream().filter((s) -> s!= null && !s.equals(""))
                 .collect(Collectors.joining("\n"));
-    }
-
-    public static String cleaned (String phone) {
-        return phone.replaceAll("\\s", "").
-                replaceAll("[-()]", "");
     }
 }
