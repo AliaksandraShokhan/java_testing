@@ -3,7 +3,6 @@ package ru.stqa.ptf.addressbook.model;
 import com.google.gson.annotations.Expose;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamOmitField;
-import jdk.jfr.Experimental;
 
 import java.util.Objects;
 
