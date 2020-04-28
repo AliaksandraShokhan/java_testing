@@ -56,25 +56,25 @@ public class ContactCreationTests extends TestBase {
     public void testContactCreation(ContactData newContact) {
 
         app.goTo().HomePage();
-        Contacts before = app.contact().all();
+        Contacts before = app.db().contacts();
 //        File photo = new File("src/test/resources/picture.png");
         app.contact().create(newContact);
         assertThat(app.contact().count(), equalTo(before.size() + 1));
-        Contacts after = app.contact().all();
+        Contacts after = app.db().contacts();
         assertThat(after, equalTo(
                 before.withAdded(newContact.withId(after.stream().mapToInt((c) -> c.getId()).max().getAsInt()))));
     }
 
-    @Test (enabled = false)
+    @Test (enabled = true)
     public void testBadContactCreation() {
 
-        Contacts before = app.contact().all();
+        Contacts before = app.db().contacts();
         ContactData newContact = new ContactData().withFirstName("'ˆˆ@#$%ˆˆ").withLastName("last name").
                 withAddress("address").withEmail1("example@mail.com").
                 withHomePhone("6543").withMobilePhone("234567").withWorkPhone("56789").withGroup("test1");
         app.contact().create(newContact);
         assertThat(app.contact().count(), equalTo(before.size()));
-        Contacts after = app.contact().all();
+        Contacts after = app.db().contacts();
         assertThat(after, equalTo(before));
     }
 }

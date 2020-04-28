@@ -49,7 +49,7 @@ public class ApplicationManager {
             wd = new SafariDriver();
         }
 
-        wd.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+        wd.manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS);
         wd.get(properties.getProperty("web.baseUrl"));
         groupsHelper = new GroupsHelper(wd);
         navigationHelper = new NavigationHelper(wd);
