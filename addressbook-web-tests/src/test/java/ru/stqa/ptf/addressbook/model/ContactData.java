@@ -3,34 +3,70 @@ package ru.stqa.ptf.addressbook.model;
 import com.google.gson.annotations.Expose;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamOmitField;
+import org.hibernate.annotations.Type;
 
+import javax.persistence.*;
 import java.io.File;
 import java.util.Objects;
 
+@Entity
+@Table(name = "addressbook")
 @XStreamAlias("contact")
 public class ContactData {
 
+    @Id
+    @Column(name = "id")
     @XStreamOmitField
     int id = Integer.MAX_VALUE;
+
+    @Column(name = "firstname")
     @Expose
     String firstName;
+
+    @Column(name = "lastname")
     @Expose
     String lastName;
+
+    @Type(type = "text")
     @Expose
     String address;
+
+    @Column(name = "home")
+    @Type(type = "text")
     @Expose
     String homePhone;
+
+    @Column(name = "mobile")
+    @Type(type = "text")
     String mobilePhone;
+
+    @Column(name = "work")
+    @Type(type = "text")
     String workPhone;
+
+    @Transient
     String allPhones;
+
+    @Type(type = "text")
     @Expose
-    String email1;
+    String email;
+
+    @Type(type = "text")
     String email2;
+
+    @Type(type = "text")
     String email3;
+
+    @Transient
     String allEmails;
+
+    @Transient
     @Expose
     String group;
-    File photo;
+
+    @Column(name = "photo")
+    @Type(type = "text")
+    String photo;
 
 
     public ContactData withFirstName(String firstName) {
@@ -67,7 +103,7 @@ public class ContactData {
     }
 
     public ContactData withEmail1(String email1) {
-        this.email1 = email1;
+        this.email = email1;
         return this;
     }
     public ContactData withEmail2(String email2) {
@@ -95,7 +131,7 @@ public class ContactData {
     }
 
     public ContactData withPhoto(File photo) {
-        this.photo = photo;
+        this.photo = photo.getPath();
         return this;
     }
 
@@ -121,8 +157,8 @@ public class ContactData {
 
     public String getAllPhones() { return allPhones; }
 
-    public String getEmail1() {
-        return email1;
+    public String getEmail() {
+        return email;
     }
 
     public String getEmail2() {
@@ -140,7 +176,7 @@ public class ContactData {
     }
 
     public File getPhoto() {
-        return photo;
+        return new File(photo);
     }
 
     @Override

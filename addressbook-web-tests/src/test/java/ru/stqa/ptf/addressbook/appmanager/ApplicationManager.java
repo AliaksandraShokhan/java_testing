@@ -24,6 +24,7 @@ public class ApplicationManager {
     private NavigationHelper navigationHelper;
     private GroupsHelper groupsHelper;
     private ContactsHelper contactsHelper;
+    private DbHelper dbHelper;
 
     public ApplicationManager(String browser) {
 
@@ -35,6 +36,8 @@ public class ApplicationManager {
 
         String target = System.getProperty("target", "local");
         properties.load(new FileReader(new File(String.format("src/test/resources/%s.properties", target))));
+
+        dbHelper = new DbHelper();
 
         if (browser.equals(BrowserType.CHROME)) {
             wd = new ChromeDriver();
@@ -74,4 +77,6 @@ public class ApplicationManager {
     public SessionHelper getSessionHelper() { return sessionHelper; }
 
     public ContactsHelper contact() { return contactsHelper; }
+
+    public DbHelper db() {return  dbHelper; }
 }
