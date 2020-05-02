@@ -3,9 +3,11 @@ package ru.stqa.ptf.addressbook.appmanager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import ru.stqa.ptf.addressbook.model.ContactData;
 import ru.stqa.ptf.addressbook.model.Contacts;
+import ru.stqa.ptf.addressbook.model.GroupData;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,8 +31,10 @@ public class ContactsHelper extends HelperBase {
 //        attach(By.name("photo"), contactData.getPhoto());
 
         if (creation) {
-            click(By.name("new_group"));
-            select(By.name("new_group"), contactData.getGroup());
+            if (contactData.getGroups().size() > 0) {
+                Assert.assertTrue(contactData.getGroups().size() == 1);
+                new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(contactData.getGroups().iterator().next().getName());
+            }
         } else {
             Assert.assertFalse(isElementPresent(By.name("new_group")));
         }
@@ -69,7 +73,7 @@ public class ContactsHelper extends HelperBase {
         wd.findElements(By.name("selected[]")).get(index).click();
     }
 
-    private void selectById(int id) {
+    public void selectById(int id) {
         wd.findElement(By.cssSelector("input[value= '" + id + "']")).click();
     }
 
@@ -143,7 +147,7 @@ public class ContactsHelper extends HelperBase {
 
     public Contacts all() {
         if (contactCache != null) {
-            return  new Contacts(contactCache);
+            return new Contacts(contactCache);
         }
 
         contactCache = new Contacts();
@@ -156,8 +160,8 @@ public class ContactsHelper extends HelperBase {
             String name = allCells.get(2).getText();
             String lastName = allCells.get(1).getText();
             String allPhones = allCells.get(5).getText();
-            String allEmails= allCells.get(4).getText();
-            String address= allCells.get(3).getText();
+            String allEmails = allCells.get(4).getText();
+            String address = allCells.get(3).getText();
 
             ContactData contact = new ContactData().withId(id).withFirstName(name).withLastName(lastName).
                     withAllPhones(allPhones).withAllEmails(allEmails).withAddress(address);
@@ -189,5 +193,23 @@ public class ContactsHelper extends HelperBase {
         WebElement row = checkbox.findElement(By.xpath("./../.."));
         List<WebElement> cells = row.findElements(By.tagName("td"));
         cells.get(7).findElement(By.tagName("a")).click();
+    }
+
+    public void selectGroupInList(String groupName) {
+        new Select(wd.findElement(By.name("to_group"))).selectByVisibleText(groupName);
+    }
+
+    public void addContactToGroup(ContactData contact, GroupData group) {
+        selectById(contact.getId());
+        selectGroupInList(group.getName());
+        wd.findElement(By.name("add")).click();
+    }
+
+    public void removeContactFromGroup(ContactData contact, GroupData group) {
+        wd.findElement(By.name("group")).click();
+        new Select(wd.findElement(By.name("group"))).selectByVisibleText(group.getName());
+        selectById(contact.getId());
+        click(By.name("remove"));
+        click(By.linkText("home"));
     }
 }

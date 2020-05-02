@@ -3,10 +3,13 @@ package ru.stqa.ptf.addressbook.tests;
 import com.google.common.reflect.TypeToken;
 import com.google.gson.Gson;
 import com.thoughtworks.xstream.XStream;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import ru.stqa.ptf.addressbook.model.ContactData;
 import ru.stqa.ptf.addressbook.model.Contacts;
+import ru.stqa.ptf.addressbook.model.GroupData;
+import ru.stqa.ptf.addressbook.model.Groups;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -20,6 +23,16 @@ import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 public class ContactCreationTests extends TestBase {
+
+
+    @BeforeMethod
+    public void ensurePreconditions() {
+
+        if (app.db().groups().size() == 0) {
+            app.goTo().GroupsPage();
+            app.group().create(new GroupData().withName("group name").withHeader("group header").withFooter("group footer"));
+        }
+    }
 
     @DataProvider
     public Iterator<Object[]> validContactsFromXml() throws IOException {
@@ -55,9 +68,10 @@ public class ContactCreationTests extends TestBase {
     @Test (dataProvider = "validContactsFromJson")
     public void testContactCreation(ContactData newContact) {
 
+        //        File photo = new File("src/test/resources/picture.png");
         app.goTo().HomePage();
         Contacts before = app.db().contacts();
-//        File photo = new File("src/test/resources/picture.png");
+
         app.contact().create(newContact);
         assertThat(app.contact().count(), equalTo(before.size() + 1));
         Contacts after = app.db().contacts();
@@ -68,10 +82,11 @@ public class ContactCreationTests extends TestBase {
     @Test (enabled = true)
     public void testBadContactCreation() {
 
-        Contacts before = app.db().contacts();
+        Groups groups = app.db().groups();
         ContactData newContact = new ContactData().withFirstName("'ˆˆ@#$%ˆˆ").withLastName("last name").
                 withAddress("address").withEmail1("example@mail.com").
-                withHomePhone("6543").withMobilePhone("234567").withWorkPhone("56789").withGroup("test1");
+                withHomePhone("6543").withMobilePhone("234567").withWorkPhone("56789").inGroup(groups.iterator().next());
+        Contacts before = app.db().contacts();
         app.contact().create(newContact);
         assertThat(app.contact().count(), equalTo(before.size()));
         Contacts after = app.db().contacts();
