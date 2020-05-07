@@ -35,7 +35,7 @@ public class HttpSession {
         post.setEntity(new UrlEncodedFormEntity(params)); //set parameters are packed and placed in a request
         CloseableHttpResponse response = httpClient.execute(post); //request is sent
         String body_login = getTextFrom(response);
-        return body_login.contains(String.format("<span class=\"label hidden-xs label-default arrowed\">%s</span>", username));
+        return body_login.contains(String.format("<span class=\"user-info\">%s</span>", username));
         // checks if the user has authorized successfully
     }
 
@@ -51,6 +51,6 @@ public class HttpSession {
         HttpGet get = new HttpGet(app.getProperty("web.baseUrl") + "/account_page.php");
         CloseableHttpResponse response = httpClient.execute(get);
         String body = getTextFrom(response);
-        return body.contains(String.format("<span class=\"label hidden-xs label-default arrowed\">%s</span>", username));
+        return body.contains(String.format("<span class=\"user-info\">%s</span>", username));
     }
 }
