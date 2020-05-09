@@ -1,6 +1,5 @@
 package ru.stqa.pft.mantis.appmanager;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -20,8 +19,13 @@ public class ApplicationManager {
     private WebDriver wd;
     private final String browser;
     private RegistrationHelper registrationHelper;
+    private UserHelper userHelper;
+    private SessionHelper sessionHelper;
     private FtpHelper ftp;
+    private DbHelper dbHelper;
+    private NavigationHelper navigationHelper;
     MailHelper mailHelper;
+    JamesHelper jamesHelper;
 
     public ApplicationManager(String browser) {
 
@@ -32,6 +36,7 @@ public class ApplicationManager {
     public void init() throws IOException {
         String target = System.getProperty("target", "local");
         properties.load(new FileReader(new File(String.format("src/test/resources/%s.properties", target))));
+        dbHelper = new DbHelper();
     }
 
     public void stop() {
@@ -53,6 +58,27 @@ public class ApplicationManager {
             registrationHelper = new RegistrationHelper(this);
         }
        return registrationHelper;
+    }
+
+    public SessionHelper session() {
+        if (sessionHelper == null) {
+            sessionHelper = new SessionHelper(this);
+        }
+        return sessionHelper;
+    }
+
+    public NavigationHelper goTo() {
+        if (navigationHelper == null) {
+            navigationHelper = new NavigationHelper(this);
+        }
+        return navigationHelper;
+    }
+
+    public UserHelper user() {
+        if (userHelper == null) {
+            userHelper = new UserHelper(this);
+        }
+        return userHelper;
     }
 
     public FtpHelper ftp() {
@@ -83,5 +109,16 @@ public class ApplicationManager {
         if (mailHelper == null) {
             mailHelper = new MailHelper(this);
         } return mailHelper;
+    }
+
+    public JamesHelper james() {
+        if (jamesHelper == null) {
+            jamesHelper = new JamesHelper(this);
+        }
+        return jamesHelper;
+    }
+
+    public DbHelper db() {
+        return dbHelper;
     }
 }
