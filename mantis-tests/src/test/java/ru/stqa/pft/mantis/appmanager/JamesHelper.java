@@ -66,14 +66,14 @@ public class JamesHelper {
         }
 
         readUntil("Login id:");
-        write("");
+        write(login);
         readUntil("Password:");
-        write("");
+        write(password);
 
         readUntil("Login id:");
-        write("");
+        write(login);
         readUntil("Password:");
-        write("");
+        write(password);
 
         readUntil("Welcome " + login + " . HELP for a list of commands");
     }
